@@ -1,0 +1,12 @@
+# Never commit TAK certificates or keys
+*.p12
+*.pfx
+*.pem
+*.key
+*.crt
+*.zip
+
+# Local test artifacts
+*.log
+*.pcap
+.DS_Store

@@ -1,0 +1,19 @@
+name: shellcheck
+
+on: [push, pull_request]
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: ShellCheck module
+        # The module is Bash, run by the LAN Turtle's /usr/lib/turtle/turtle_module.
+        run: shellcheck -s bash -S warning modules/turtletak
+      - name: Bash syntax
+        run: bash -n modules/turtletak
+      - name: Turtle module format
+        run: |
+          head -1 modules/turtletak | grep -qx '#!/bin/bash /usr/lib/turtle/turtle_module'
+          for f in start stop status configure; do grep -q "^function $f {" modules/turtletak; done
+          ! grep -q $'\r' modules/turtletak
